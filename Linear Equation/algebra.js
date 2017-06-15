@@ -1,6 +1,6 @@
 (function exe(canv){
   const cx = canv.getContext("2d");
-  const inputs = document.querySelector("inputs");
+  const inputs = document.querySelector("input");
   const m = inputs[0];
   const x = inputs[1];
   const b = inputs[2];
