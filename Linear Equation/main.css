@@ -1,0 +1,59 @@
+*{
+  font:18px Calibri, Verdana, Tahoma, sans-serif;
+  line-height: 1.3rem;
+  color:#fff;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  background:#222;
+  padding:40px;
+}
+
+/*TYPOGRAPHY*/
+
+h1{
+  font-size:3rem;
+  padding:20px 0;
+}
+
+input{
+  background:#444;
+  color:#fff;
+  display:block;
+  width:20rem;
+}
+
+input:first-of-type{
+  margin-top:20px;
+}
+
+::placeholder{
+  color:#eee;
+}
+
+/*DISPLAYS*/
+canvas{
+  background:black;
+  margin-top:20px;
+}
+
+.container{
+  display:flex;
+  flex-direction:row;
+}
+
+.container *{
+  margin:20px;
+}
+
+.container canvas{
+  margin-left:0px;
+}
+
+#display{
+  width:500px;
+  height:400px;
+}
