@@ -1,6 +1,6 @@
 const sieve = require("./sieve");
 const fs = require("fs");
-const numprimes = 1E6;
+const numprimes = 1E5;
 //clear prime file
 fs.writeFileSync("primes.txt","");
 console.log("Calculating primes...");

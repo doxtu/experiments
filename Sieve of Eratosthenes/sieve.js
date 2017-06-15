@@ -17,6 +17,13 @@
     context.sieve = sieve
   }
 
+  //clear polyfill
+  if(typeof console.clear === "undefined"){
+    console.clear =   function clear() {
+        return process.stdout.write('\u001B[2J\u001B[0;0f');
+      };
+  }
+
   function sieve(n){
     //list will have n length containing numbers 2 to n
     //primes will obviously contain primes
@@ -25,6 +32,7 @@
     primes = [],
     p = 2;
 
+    //tracking execution
     var start = Date.now();
 
     //fix n to make sure it's reasonable
@@ -46,7 +54,7 @@
       //advances to next prime
       p = list[0];
     }
-
+    
     console.log("Execution time (s):",(Date.now()-start)/1000,"\n\n");
 
     return primes;
