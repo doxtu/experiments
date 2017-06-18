@@ -9,20 +9,18 @@
   <body>
     <h1>Linear equation</h1>
     <p>Describes a basic proportional relationship and is the foundation of algebra.</p>
-    <p>In the cartesian plane, y=mx+b describes the relationship</p>
+    <p>In the cartesian plane, <strong>y=mx+b</strong> describes the relationship</p>
     <p>This relationship can be extracted iff two points are given</p>
     <p>This can be applied to physics, economics, finance, and basically every other discipline.</p>
 
     <h2>Enter some values and it will attempt to solve for the others</h2>
-    <input type="number" name="rate" placeholder="Enter proportional constant...">
-    <input type="number" name="value" placeholder="Enter the scale...">
-    <input type="number" name="initial" placeholder="Enter the initial value...">
-    <input type="button" name="draw" value="Do Math!">
+    <input type="number" name="rate" placeholder="Enter proportional constant...(m)">
+    <input type="number" name="value" placeholder="Enter the scale...(x)">
+    <input type="number" name="initial" placeholder="Enter the initial value...(b)">
+    <input type="button" name="draw" value="Draw!">
 
-    <div class="container">
-      <canvas width=500 height=400></canvas>
-      <div id="display"></div>
-    </div>
+    <canvas width=500 height=400></canvas>
+
   </body>
 
   <script src="algebra.js"></script>

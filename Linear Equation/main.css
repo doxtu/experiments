@@ -16,6 +16,7 @@ body{
 
 h1{
   font-size:3rem;
+  line-height: 3rem;
   padding:20px 0;
 }
 
@@ -38,22 +39,6 @@ input:first-of-type{
 canvas{
   background:black;
   margin-top:20px;
-}
-
-.container{
-  display:flex;
-  flex-direction:row;
-}
-
-.container *{
-  margin:20px;
-}
-
-.container canvas{
+  border:1px solid white;
   margin-left:0px;
-}
-
-#display{
-  width:500px;
-  height:400px;
 }
