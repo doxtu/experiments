@@ -7,8 +7,6 @@
 */
 
 (function sieveCreator(context){
-  "use strict";
-
   //dopey module implementation
   if(typeof module.exports !== "undefined"){
     module.exports = sieve;
@@ -25,6 +23,7 @@
   }
 
   function sieve(n){
+    "use strict";
     //list will have n length containing numbers 2 to n
     //primes will obviously contain primes
     //p is our initial prime
@@ -54,7 +53,7 @@
       //advances to next prime
       p = list[0];
     }
-    
+
     console.log("Execution time (s):",(Date.now()-start)/1000,"\n\n");
 
     return primes;
