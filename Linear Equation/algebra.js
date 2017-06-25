@@ -63,8 +63,8 @@
 
     if(typeof exp === "undefined") return;
     //parse the expression
-    let m = isNaN(exp) ? _parse(exp).m : 0;
-    let b = isNaN(exp) ? _parse(exp).b : +exp;
+    let m = isNaN(exp) ? Number(_parse(exp).m) : 0;
+    let b = isNaN(exp) ? Number(_parse(exp).b) : +exp;
 
     function _parse(exp){
       let arr = exp.split("");
@@ -87,10 +87,24 @@
         b:b
       };
     }
-
-    //compare slope and initial value to length of the canvas, normalize it to 1/100
-    let valuePerUnit = Math.max(m,b)/100;
-
+    //x min not properly graphed
+    let valuePerUnit = (m*100+b)/100;
+    let lengthPerUnit = center/100;
+    let b_dist = (b/valuePerUnit) || 0;
+    let m_dist = (m/valuePerUnit);
+    let y_max = center/valuePerUnit;
+    let y_min = (100/valuePerUnit)*m_dist + b_dist;
+    let RightEndPointX = center + (
+      y_max+b_dist
+    )/(
+      m_dist
+    )*lengthPerUnit;
+    let LeftEndPointY = center + y_min*lengthPerUnit;
+    console.log(LeftEndPointY,2*center);
+    cx.beginPath();
+    cx.moveTo(0,LeftEndPointY);
+    cx.lineTo(RightEndPointX,0);
+    cx.stroke();
   }
 
 })(document.querySelector("canvas"));
