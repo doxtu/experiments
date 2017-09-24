@@ -27,6 +27,13 @@
   <script>
    $(function () {
      var socket = io();
+	 var storage = JSON.parse(localStorage.getItem("ident")).ident;
+	 var ident = typeof storage !== 'number' ? Math.floor(Math.random()*10000) : storage.ident;
+	 socket.emit("id",ident);
+	 localStorage.setItem('ident',JSON.stringify({
+	   'ident': ident
+	 }));
+	 console.log(ident);
       $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
