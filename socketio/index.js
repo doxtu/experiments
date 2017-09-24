@@ -3,7 +3,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 const users = {};
-const names = ['nick','kim','puppy','otherpuppy','nonpuppy','doxtu','yovo','sveox','ScumFuckFlowerGirl'];
+const suffix = ['puppy','puff','weirdo','pug'];
+const names = ['nick','kim','aloha','kimmy','nonpuppy','doxtu','yovo','ScumFuckFlowerGirl'];
 
 app.get("/",(req,res)=>{
   res.sendFile(__dirname + '/index.html');
@@ -16,16 +17,17 @@ io.on('connection',(socket)=>{
   
   socket.on('id',(id)=>{
     id = Number(id);
-    let user = users[id];
-    if(typeof user === "undefined"){
-      user = createUser(socket);
-    } 
-    io.emit('chat message', user.name + " has connected!");
+    if(typeof users[id] === "undefined"){
+      users[id] = createUser(socket);
+    }
+    users[id].socket = socket; 
+    io.emit('chat message', users[id].name + " has connected!");
   });
   
   socket.on('chat message',(msg)=>{
-	  // console.log('user sent:' + msg);
-	  io.emit('chat message',msg);
+	  console.log('user sent:' + msg);
+          msg = JSON.parse(msg);
+	  io.emit('chat message',users[msg.id].name + ": " + msg.message);
   });
 });
 
@@ -34,9 +36,10 @@ http.listen(8000,()=>{
 });	
 
 function createUser(sock){
-  let user = {
+  let name = names[getRandom(0,names.length)]+" "+ suffix[getRandom(0,suffix.length)];
+ let user = {
     id: getRandom(0,10000),
-	name: names[getRandom(0,names.length)],
+	name: name,
 	socket: sock
   };
   

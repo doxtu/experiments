@@ -27,12 +27,17 @@
   <script>
    $(function () {
       var socket = io();
-	  var storage = +localStorage.getItem("GLident");
+	  var storage = localStorage.getItem("GLident") == null ? "stupid" : localStorage.getItem("GLident");
 	  var ident = isNaN(storage) ? String(Math.floor(Math.random()*10000)) : storage;
 	  localStorage.setItem("GLident",ident);
-	  socket.emit("id",ident);
+	  socket.emit('id',ident);
       $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
+        var message = {
+          id: ident,
+          message: $('#m').val()
+        }
+        message = JSON.stringify(message);
+        socket.emit('chat message', message);
         $('#m').val('');
         return false;
       });
