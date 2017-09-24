@@ -15,12 +15,12 @@ io.on('connection',(socket)=>{
   });
   
   socket.on('id',(id)=>{
-	 let user = users[id];
-	 if(typeof user === "undefined"){
-		user = createUser(socket);  
-		// console.log(user, user.name);
-		io.emit('chat message', user.name + " has connected!");
-	 } 
+    id = Number(id);
+    let user = users[id];
+    if(typeof user === "undefined"){
+      user = createUser(socket);
+    } 
+    io.emit('chat message', user.name + " has connected!");
   });
   
   socket.on('chat message',(msg)=>{
