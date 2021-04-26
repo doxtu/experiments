@@ -8,15 +8,15 @@ def calculate_secs():
     now = datetime.today()
     tomorrow = now + timedelta(days=1)
     today_morning = datetime(
-        tomorrow.year,
-        tomorrow.month,
-        tomorrow.day,
+        now.year,
+        now.month,
+        now.day,
         hour=8
     )
     today_evening = datetime(
-        tomorrow.year,
-        tomorrow.month,
-        tomorrow.day,
+        now.year,
+        now.month,
+        now.day,
         hour=22
     )
     tomorrow_morning = datetime(
@@ -42,8 +42,9 @@ def calculate_secs():
 
 def init():
     '''Starts off the process by waiting to email until the next desired time'''
-
+    
     secs = calculate_secs()
+    print(f'{secs/(60*60)} hours until next run')
     Timer(secs, scheduler).start()
 
 def scheduler():
@@ -51,6 +52,7 @@ def scheduler():
 
     email_random_catgirl()
     secs = calculate_secs()
+    print(f'{secs/(60*60)} hours until next run')
     Timer(secs, scheduler).start()
 
 init()
