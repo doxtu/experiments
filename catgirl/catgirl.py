@@ -12,27 +12,48 @@ ACTION = '/posts.json'
 TAGS = 'cat_girl%20large_breasts'
 PARAMS = f'?login={LOGIN}&api_key={API_KEY}&tags={TAGS}&random=true&limit=1'
 
-
-def get_random_catgirl():
-    '''Get a binary representation of an image from Danbooru's API for a random catgirl'''
-
+def get_random_catgirl_json(save=False):
     from requests import get
+    import json
 
-    ret = b''
+    ret = {}
 
     try:
         r = get(f'{URL}{ACTION}{PARAMS}')
         if r.status_code == 200:
-            data = r.json()
-            # The catgirl is not worthy unless she has a large file size ;)
-            if 'large_file_url' not in data[0]: return get_random_catgirl()
-            image_url = data[0]['large_file_url']
-            ir = get(image_url)
-            ret = ir.content
+            ret = r.json()
         else:
-            os.stderr.write(f'CATERROR - Failed to retrieve catgirl {r.status_code}')
-    except:
-        pass
+            ret = [{'error':'failed to get catgirl'}]
+    except Exception as e:
+        ret = [{'error':'failed to get catgirl'}]
+
+    if save == True:
+        with open('output-catgirl.json', 'w') as f:
+           f.write(json.dumps(ret)) 
+
+    return ret
+
+def get_random_catgirl():
+    '''Get a binary representation of an image from Danbooru's API for a random catgirl'''
+    
+    from requests import get
+
+    ret = b''
+
+    data = get_random_catgirl_json()
+
+    if 'error' in data[0]:
+        return print(data['error'])
+
+    # The catgirl is not worthy unless she has a large file size ;)
+    if 'large_file_url' not in data[0]: return get_random_catgirl()
+    image_url = data[0]['large_file_url']
+    ir = get(image_url)
+
+    if ir.status_code == 200:
+        ret = ir.content
+    else:
+        print('failed to get catgirl image')
 
     return ret
 
@@ -56,14 +77,15 @@ def dl_random_catgirl(random_catgirl=None):
 FROM_ADDRESS = os.environ.get('NICK_EMAIL')
 TO_ADDRESS = os.environ.get('KIM_EMAIL')
 
-def email_random_catgirl(random_catgirl=None, recipients=[FROM_ADDRESS, TO_ADDRESS]):
+def email_random_catgirl(random_catgirl=None, save=False, recipients=[FROM_ADDRESS, TO_ADDRESS]):
     import smtplib, os
     from email.message import EmailMessage
 
     if random_catgirl == None:
         random_catgirl = get_random_catgirl()
 
-    dl_random_catgirl(random_catgirl)
+    if save == True:
+        dl_random_catgirl(random_catgirl)
 
     PASSWORD = os.environ.get('G_PASSWORD')
 
