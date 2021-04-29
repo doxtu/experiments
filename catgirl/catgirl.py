@@ -43,7 +43,7 @@ def get_random_catgirl():
     data = get_random_catgirl_json()
 
     if 'error' in data[0]:
-        return print(data['error'])
+        return print(data[0]['error'])
 
     # The catgirl is not worthy unless she has a large file size ;)
     if 'large_file_url' not in data[0]: return get_random_catgirl()
