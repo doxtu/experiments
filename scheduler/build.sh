@@ -5,3 +5,5 @@ cp requirements.txt ./build/requirements.txt
 cp ../catgirl/catgirl.py ./build/catgirl.py
 cd build
 docker build -t catgirl-scheduler .
+cd ..
+rm -rf build
