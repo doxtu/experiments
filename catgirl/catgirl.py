@@ -95,7 +95,7 @@ def email_random_catgirl(random_catgirl=None, save=False, recipients=[FROM_ADDRE
     message['To'] = recipients
     message.set_content('''Cute catgirl is here to brighten up your day!''')
 
-    message.add_attachment(random_catgirl, maintype='image', subtype='jpg', filename='random-catgirl')
+    message.add_attachment(random_catgirl, maintype='image', subtype='jpg', filename='random-catgirl.jpg')
     
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(FROM_ADDRESS,PASSWORD)
