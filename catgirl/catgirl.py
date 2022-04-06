@@ -23,6 +23,7 @@ def get_random_catgirl_json(save=False):
         if r.status_code == 200:
             ret = r.json()
         else:
+            print(r.json())
             ret = [{'error':'failed to get catgirl'}]
     except Exception as e:
         ret = [{'error':'failed to get catgirl'}]
