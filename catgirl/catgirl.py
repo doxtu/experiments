@@ -75,10 +75,9 @@ def dl_random_catgirl(random_catgirl=None):
         i.save(f'{filename}.{file_type}')
 
 
-FROM_ADDRESS = os.environ.get('NICK_EMAIL')
-TO_ADDRESS = os.environ.get('KIM_EMAIL')
+G_ADDRESS = os.environ.get('G_ADDRESS')
 
-def email_random_catgirl(random_catgirl=None, save=False, recipients=[FROM_ADDRESS, TO_ADDRESS]):
+def email_random_catgirl(random_catgirl=None, save=False, recipients=os.environ.get('EMAIL_LIST').split(',')):
     import smtplib, os, random
     from email.message import EmailMessage
 
@@ -92,12 +91,12 @@ def email_random_catgirl(random_catgirl=None, save=False, recipients=[FROM_ADDRE
 
     message = EmailMessage()
     message['Subject'] = 'Catgirl of the day!'
-    message['From'] = FROM_ADDRESS
+    message['From'] = G_ADDRESS
     message['To'] = recipients
     message.set_content('''Cute catgirl is here to brighten up your day!''')
 
     message.add_attachment(random_catgirl, maintype='image', subtype='jpg', filename=f'random-catgirl-{str(random.randint(1000000000,9999999999))}.jpg')
     
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login(FROM_ADDRESS,PASSWORD)
+        smtp.login(G_ADDRESS,PASSWORD)
         smtp.send_message(message)
