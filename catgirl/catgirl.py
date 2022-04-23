@@ -8,9 +8,9 @@ import os
 LOGIN = os.environ.get('DANBOORU_USERNAME')
 API_KEY = os.environ.get('DANBOORU_API_KEY')
 URL = 'https://danbooru.donmai.us'
-ACTION = '/posts.json'
-TAGS = 'cat_girl%20large_breasts'
-PARAMS = f'?login={LOGIN}&api_key={API_KEY}&tags={TAGS}&random=true&limit=1'
+ACTION = '/posts/random.json'
+TAGS = 'cat_girl large_breasts'
+PARAMS = f'?login={LOGIN}&api_key={API_KEY}&tags={TAGS}'
 
 def get_random_catgirl_json(save=False):
     from requests import get
@@ -22,6 +22,8 @@ def get_random_catgirl_json(save=False):
         r = get(f'{URL}{ACTION}{PARAMS}')
         if r.status_code == 200:
             ret = r.json()
+            if type(ret) is dict:
+                ret = [ ret ]
         else:
             print(r.json())
             ret = [{'error':'failed to get catgirl'}]
